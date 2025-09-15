@@ -1,0 +1,33 @@
+<!-- templates/contact.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contact & Guestbook</title>
+</head>
+<body>
+    <h1>Contact & Guestbook</h1>
+    <p>Leave a message for everyone to see!</p>
+
+    <!-- The submission form -->
+    <form method="post" action="{% url 'contact' %}">
+        {% csrf_token %} <!-- Django's Cross-Site Request Forgery protection token -->
+        <textarea name="message" rows="4" cols="50" placeholder="Your message..."></textarea>
+        <br>
+        <button type="submit">Submit Message</button>
+    </form>
+
+    <hr>
+
+    <h2>Guestbook Entries:</h2>
+    <ul>
+        {% for message in messages %}
+            <li>{{ message|safe }}</li>
+        {% empty %}
+            <li>No messages yet.</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'home' %}">Back to Home</a>
+</body>
+</html>
